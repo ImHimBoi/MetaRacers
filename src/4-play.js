@@ -1,6 +1,5 @@
-import { changeAttribute } from "./utils/change-attribute.js";
+import { promises as fs } from 'fs'; // Use fs.promises for async file operations
 import { connectSdk } from "./utils/connect-sdk.js";
-import { Address } from "@unique-nft/sdk/utils";
 
 const play = async () => {
   const args = process.argv.slice(2);
@@ -15,48 +14,42 @@ const play = async () => {
   let { nonce } = await sdk.common.getNonce(account);
   const transactions = [];
 
-  // Get the player's current token attributes
-  const playerToken = await sdk.token.getV2({ collectionId: carsCollectionId, tokenId: tokenId });
-  const playerAttributes = playerToken.attributes.reduce((acc, attribute) => {
-    acc[attribute.trait_type] = attribute.value;
-    return acc;
-  }, {});
+  // Read the player's current token attributes from the file
+  const statsFile = 'stats.json';
 
-  // Update the player's traits
-  const newAttributes = {
-    "Victories": playerAttributes.Victories + 1,
-    "Defeats": playerAttributes.Defeats,
-    "Total time played": playerAttributes["Total time played"] + 80, // Example increment, adjust as needed
-    "Best lap time": Math.min(playerAttributes["Best lap time"], 80) // Example, update with actual lap time
-  };
+  try {
+    const data = await fs.readFile(statsFile, 'utf8');
+    const playerAttributes = JSON.parse(data);
 
-  // Prepare the properties update transaction
-  transactions.push(sdk.token.setProperties({
-    collectionId: carsCollectionId,
-    tokenId: tokenId,
-    properties: [{
-      key: "tokenData",
-      value: JSON.stringify({
-        ...playerAttributes,
-        ...newAttributes,
-        "Nickname": playerAttributes.Nickname // Ensure nickname is not updated
-      })
-    }]
-  }, { nonce: nonce++ }));
+    // Log the current player attributes
+    console.log("Player attributes:", playerAttributes);
 
-  await Promise.all(transactions);
+    // Update the player's traits
+    const newAttributes = {
+      "Victories": playerAttributes.Victories + 1,
+      "Defeats": playerAttributes.Defeats,
+      "Total time played": playerAttributes.total_time_played, // Example increment, adjust as needed
+      "Best lap time": playerAttributes.best_lap_time // Example, update with actual lap time
+    };
 
-  console.log(`TokenID ${tokenId} has ${newAttributes.Victories} wins`);
-  console.log(`TokenID ${tokenId} has ${newAttributes.Defeats} defeats`);
-  console.log(`TokenID ${tokenId} has ${newAttributes["Total time played"]} total time played`);
-  console.log(`TokenID ${tokenId} has ${newAttributes["Best lap time"]} best lap time`);
+    // Log the new player attributes
+    console.log("New player attributes:", newAttributes);
 
-  console.log(`Player: https://uniquescan.io/opal/tokens/${carsCollectionId}/${tokenId}`);
+    // Prepare the properties update transaction
+    transactions.push(sdk.token.setProperties({
+      collectionId: carsCollectionId,
+      tokenId: tokenId,
+      properties: [{
+        key: "tokenData",
+        value: JSON.stringify({
+          ...playerAttributes,
+          ...newAttributes,
+          "Nickname": nickname // Ensure nickname is not updated
+        })
+      }]
+    }, { nonce: nonce++ }));
 
-  process.exit(0);
+    await Promise.all(transactions);
+
+  }
 }
-
-play().catch(e => {
-  console.log("Something went wrong during play");
-  throw e;
-})
