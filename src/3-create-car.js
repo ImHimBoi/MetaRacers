@@ -36,6 +36,13 @@ const createToken = async () => {
       {
         trait_type: "Defeats",
         value: 0,
+      },
+      {
+        trait_type: "Total time played",
+        value: 0},
+      {
+        trait_type: "Best lap time",
+        value: 0
       }
     ],
   });
