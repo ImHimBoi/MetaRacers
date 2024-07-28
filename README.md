@@ -1,6 +1,9 @@
 # What is MetaRacers?
 MetaRacers is the concept we have created for a virtual reality race car game with realistic maps, first person POV, and trainings/missions to improve your driving skills that mimic the life of a race car driver. Players will be able to enjoy the full experience with just joysticks and a headset and cars in the game will be NFTs that store information such as the players' accomplishments, personal records, etc. Players are able to trade these for other cars or skill boosts in the game, creating an overall more personal, valuable, and interactive game experience. The use of an unique network and NFTs make the game more secure as well. We're currently at our first prototype of the game which is 2D indies style race car driving simulation where users driver around a track while dodging obstacles and being timed. The same NFT logic is being used here to gather and store diagnostic data of the user into their car NFT.
 
+# Website
+https://metaracing.tech/
+
 # Features
 - **Pygame Framework**: Super fast games with loads of features
 - **Unique Network's NFT 2.0**: Ultra-fast and secure, providing reliability on the polkadot ecosystem
