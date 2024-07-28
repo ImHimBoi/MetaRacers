@@ -16,4 +16,4 @@ https://metaracing.tech/
 
 # Demo Video
 [![Metaracers](https://backiee.com/static/wallpapers/560x315/368175.jpg)](https://youtu.be/Lw2XvW8aFhM)
-[![Meta}(https://media.discordapp.net/attachments/1265475623820853248/1267135740563685419/image.png?ex=66a7af9e&is=66a65e1e&hm=db6bf45e513ec0ced3b16cf63d733ce4d371b4a9ea0086e3d6ab9792612c86cc&=&format=webp&quality=lossless&width=1291&height=741)(https://youtu.be/i6wQoMRwBCo)
+[![Meta](https://media.discordapp.net/attachments/1265475623820853248/1267135740563685419/image.png?ex=66a7af9e&is=66a65e1e&hm=db6bf45e513ec0ced3b16cf63d733ce4d371b4a9ea0086e3d6ab9792612c86cc&=&format=webp&quality=lossless&width=1291&height=741)(https://youtu.be/i6wQoMRwBCo)
